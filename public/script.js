@@ -7,7 +7,7 @@ myVideo.muted = true;
 var peer = new Peer(undefined, {
   path: "/peerjs",
   host: "/",
-  port: "3030",
+  port: PORT.toString(),
 });
 
 let myVedioStream;
@@ -15,11 +15,11 @@ navigator.mediaDevices
   .getUserMedia({
     video: true,
     audio: false,
-})
+  })
   .then((stream) => {
     myVedioStream = stream;
     addVideoStream(myVideo, stream);
-});
+  });
 
 peer.on("open", (id) => {
   socket.emit("join-room", ROOM_ID, id);
@@ -34,18 +34,19 @@ peer.on("call", (call) => {
   });
 });
 
-socket.on("user-joined", (userId) => {
-  conneToNewUser(userId, myVedioStream);
-});
-
 const conneToNewUser = (id, stream) => {
   var call = peer.call(id, stream);
   const video = document.createElement("video");
   call.on("stream", (userVideoStream) => {
-    console.log("streaming");
     addVideoStream(video, userVideoStream);
   });
 };
+
+socket.on("user-joined", (userId) => {
+  conneToNewUser(userId, myVedioStream);
+});
+
+
 
 const addVideoStream = (video, stream) => {
   video.srcObject = stream;

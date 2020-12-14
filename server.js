@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/:roomId", (req, res) => {
-  res.render("room", { roomId: req.params.roomId });
+  res.render("room", { roomId: req.params.roomId, PORT: PORT });
 });
 
 const io = require("socket.io")(server);
