@@ -16,8 +16,7 @@ app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 
-
-app.use("/peerjs", peerServer)
+app.use("/peerjs", peerServer);
 app.get("/", (req, res) => {
   res.redirect(`/${uuidv4()}`);
 });
@@ -28,11 +27,12 @@ app.get("/:roomId", (req, res) => {
 
 const io = require("socket.io")(server);
 
-
-
 io.on("connection", (socket) => {
   socket.on("join-room", (roomId, userId) => {
     socket.join(roomId);
     socket.to(roomId).broadcast.emit("user-joined", userId);
+    socket.on("message", (message) => {
+      io.to(roomId).emit("receive-message", message);
+    });
   });
 });
