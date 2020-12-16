@@ -114,8 +114,14 @@ video {
 
 .main__message-container {
     padding: 22px 12px;
-}
+    display: flex;
+    justify-content: space-between;
 
+}
+.main__message-container span{ 
+    color: white;
+    cursor: pointer;
+}
 
 .main__message-container input { 
     flex: 1;

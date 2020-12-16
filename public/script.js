@@ -7,7 +7,7 @@ myVideo.muted = true;
 var peer = new Peer(undefined, {
   path: "/peerjs",
   host: "/",
-  port: "443",
+  port: "3030",
 });
 
 let myVedioStream;
@@ -67,12 +67,13 @@ const addVideoStream = (video, stream) => {
 
 const message = $("#chat_message");
 
-$("html").keydown((e) => {
-  if (e.which == 13 && message.val().length !== 0) {
+const sendMessage = () => {
+  if (message.val().length !== 0) {
     socket.emit("message", message.val(), userName);
     message.val("");
   }
-});
+};
+
 
 socket.on("receive-message", (msg, user) => {
   $(".messages").append(
@@ -100,9 +101,7 @@ const muteUnmute = () => {
     `;
     document.querySelector(".muteUnmute-button").innerHTML = html;
   }
-  
 };
-
 
 const stopPlay = () => {
   const enabled = myVedioStream.getVideoTracks()[0].enabled;
@@ -121,12 +120,11 @@ const stopPlay = () => {
     `;
     document.querySelector(".stopPlay-button").innerHTML = html;
   }
-}
+};
 
-
-function closeCurrentTab(){
-  var conf=confirm("Are you sure, you want to end your call?");
-  if(conf==true){
+function closeCurrentTab() {
+  var conf = confirm("Are you sure, you want to end your call?");
+  if (conf == true) {
     window.close();
   }
 }
