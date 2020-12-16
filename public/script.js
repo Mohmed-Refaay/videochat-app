@@ -7,7 +7,7 @@ myVideo.muted = true;
 var peer = new Peer(undefined, {
   path: "/peerjs",
   host: "/",
-  port: "443",
+  port: "3030",
 });
 
 let myVedioStream;
@@ -74,11 +74,51 @@ $("html").keydown((e) => {
   }
 });
 
-socket.on("receive-message", (msg , user) => {
+socket.on("receive-message", (msg, user) => {
   $(".messages").append(
     `<li class="message"><b>${user ? user : "user"}</b></br>${msg}</li>`
   );
 
-  const d = $(".main__chat_window")
-  d.scrollTop(d.prop("scrollHeight"))
+  const d = $(".main__chat_window");
+  d.scrollTop(d.prop("scrollHeight"));
 });
+
+const muteUnmute = () => {
+  const enabled = myVedioStream.getAudioTracks()[0].enabled;
+  if (enabled) {
+    const html = `
+    <i class="red fas fa-microphone-slash"></i>
+    <span>Unmute</span>
+    `;
+    document.querySelector(".muteUnmute-button").innerHTML = html;
+    myVedioStream.getAudioTracks()[0].enabled = false;
+  } else {
+    myVedioStream.getAudioTracks()[0].enabled = true;
+    const html = `
+    <i class="fas fa-microphone"></i>
+    <span>Mute</span>
+    `;
+    document.querySelector(".muteUnmute-button").innerHTML = html;
+  }
+  
+};
+
+
+const stopPlay = () => {
+  const enabled = myVedioStream.getVideoTracks()[0].enabled;
+  if (enabled) {
+    const html = `
+    <i class="red fas fa-video"></i>
+    <span>Play Video</span>
+    `;
+    document.querySelector(".stopPlay-button").innerHTML = html;
+    myVedioStream.getVideoTracks()[0].enabled = false;
+  } else {
+    myVedioStream.getVideoTracks()[0].enabled = true;
+    const html = `
+    <i class="fas fa-video"></i>
+    <span>Stop Video</span>
+    `;
+    document.querySelector(".stopPlay-button").innerHTML = html;
+  }
+}
