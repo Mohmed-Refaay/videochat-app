@@ -27,7 +27,9 @@ video {
 @media (max-width: 700px) {
     .main {
         flex-direction: column;
+        height: fit-content;
     }
+    
 }
 
 .main__left {
@@ -107,6 +109,7 @@ video {
 .main__chat_window {
     flex: 1;
     overflow-y: scroll;
+    min-height: 300px;
 }
 
 .main__message-container {
