@@ -69,14 +69,14 @@ const message = $("#chat_message");
 
 $("html").keydown((e) => {
   if (e.which == 13 && message.val().length !== 0) {
-    socket.emit("message", message.val());
+    socket.emit("message", message.val(), userName);
     message.val("");
   }
 });
 
-socket.on("receive-message", (msg) => {
+socket.on("receive-message", (msg , user) => {
   $(".messages").append(
-    `<li class="message"><b>${userName ? userName : "user"}</b></br>${msg}</li>`
+    `<li class="message"><b>${user ? user : "user"}</b></br>${msg}</li>`
   );
 
   const d = $(".main__chat_window")
