@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ref VideoChatApp</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        const setAtrr = () => {
+            const unique = $("input").val();
+            $("#ownId").attr("href", `/${unique}`)
+        }
+
+    </script>
+
+    <style>
+
+        body {
+            text-align: center;
+            background-color: #343434;
+            color: white;
+            font: sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 6px 10px;
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+        }
+
+        input {
+            color: white;
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Ref Meets App</h1>
+    <a href="/<%= uniqueId %> ">Join Random Room</a>
+    <h3>or</h3>
+    <h2>Join Specific Room</h2>
+    <input type="text" onchange="setAtrr()" placeholder="Enter Your Own ID Here">
+    <a href="" id="ownId">Join</a>
+</body>
+
+</html>

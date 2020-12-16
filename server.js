@@ -18,7 +18,7 @@ app.use(express.static("public"));
 
 app.use("/peerjs", peerServer);
 app.get("/", (req, res) => {
-  res.redirect(`/${uuidv4()}`);
+  res.render("index", { uniqueId: uuidv4() });
 });
 
 app.get("/:roomId", (req, res) => {
