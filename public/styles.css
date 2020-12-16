@@ -14,12 +14,20 @@ video {
 #videos-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .main {
     height: 100vh;
     display: flex;
     width: 100%;
+}
+
+
+@media (max-width: 700px) {
+    .main {
+        flex-direction: column;
+    }
 }
 
 .main__left {
