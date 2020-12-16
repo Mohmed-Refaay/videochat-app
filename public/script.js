@@ -122,3 +122,11 @@ const stopPlay = () => {
     document.querySelector(".stopPlay-button").innerHTML = html;
   }
 }
+
+
+function closeCurrentTab(){
+  var conf=confirm("Are you sure, you want to end your call?");
+  if(conf==true){
+    window.close();
+  }
+}
